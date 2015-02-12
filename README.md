@@ -15,6 +15,14 @@ Indicator of project health (i.e. is this project dead?)
 - [ ] Persist scores (database)
 - [ ] Generate "badge" with score
 
+#### Admin/Ops
+
+- [ ] Setup Github app credentials
+- [ ] Setup Heroku app
+- [ ] Travis CI
+- [ ] Automatically list "production" builds as releases
+- [ ] Good test coverage
+
 #### Resources
 
 * [Github API](https://developer.github.com/v3/)
