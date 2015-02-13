@@ -25,10 +25,10 @@ Indicator of project health (i.e. is this project dead?)
 
 #### Setup
 
-- Get code: `git clone https://github.com/140proof/OSS-health.git`
-- Get dependencies: `go get -t`
-- Build: `go build`
-- Run: `./OSS-health`
+1. Get code: `git clone https://github.com/140proof/OSS-health.git`
+1. Get dependencies: `go get -t`
+1. Build: `go build`
+1. Run: `./OSS-health`
 
 #### Resources
 
