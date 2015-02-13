@@ -23,6 +23,13 @@ Indicator of project health (i.e. is this project dead?)
 - [ ] Automatically list "production" builds as releases
 - [ ] Good test coverage
 
+#### Setup
+
+- Get code: `git clone https://github.com/140proof/OSS-health.git`
+- Get dependencies: `go get -t`
+- Build: `go build`
+- Run: `./OSS-health`
+
 #### Resources
 
 * [Github API](https://developer.github.com/v3/)
