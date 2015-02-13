@@ -27,3 +27,4 @@ Indicator of project health (i.e. is this project dead?)
 
 * [Github API](https://developer.github.com/v3/)
 * [Github Go Package](https://github.com/google/go-github)
+* [Go OAuth2 Package](https://github.com/golang/oauth2)
