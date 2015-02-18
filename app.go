@@ -47,7 +47,7 @@ func getRepoStats(repoUrl string) *RepoStats {
 	return rs
 }
 
-func main() {
+func mainold() {
 	log.Println("Starting OSS Health App")
 
 	err := godotenv.Load()
