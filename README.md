@@ -30,6 +30,13 @@ Indicator of project health (i.e. is this project dead?)
 1. Build: `go build`
 1. Run: `./OSS-health`
 
+#### Deploy (Heroku)
+
+1. [Install Heroku Toolbelt](https://toolbelt.heroku.com/)
+1. Configure Heroku: `heroku login`
+1. Add Heroku App as Git Remote: `heroku git:remote -a oss-health`
+1. Deploy: `git push heroku master`
+
 #### Resources
 
 * [Github API](https://developer.github.com/v3/)
