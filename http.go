@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -27,7 +29,12 @@ func handlers() *mux.Router {
 func startServer() {
 
 	log.Println("serving...")
-	http.ListenAndServe(":8080", handlers())
+	if os.Getenv("PORT") != "" {
+		http.ListenAndServe(strings.Join([]string{":", os.Getenv("PORT")}, ""), handlers())
+	} else {
+		http.ListenAndServe(":8080", handlers())
+	}
+
 }
 
 func main() {
