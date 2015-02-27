@@ -17,8 +17,8 @@ Indicator of project health (i.e. is this project dead?)
 
 #### Admin/Ops
 
-- [ ] Setup Github app credentials
-- [ ] Setup Heroku app
+- [x] Setup Github app credentials
+- [x] Setup Heroku app
 - [ ] Travis CI
 - [ ] Automatically list "production" builds as releases
 - [ ] Good test coverage
@@ -36,6 +36,8 @@ Indicator of project health (i.e. is this project dead?)
 1. Configure Heroku: `heroku login`
 1. Add Heroku App as Git Remote: `heroku git:remote -a oss-health`
 1. Deploy: `git push heroku master`
+
+*Notes*: In order to deploy a different branch you must use `git push heroku <other_branch>:master`
 
 #### Resources
 
