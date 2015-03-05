@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"strings"
 
 	"code.google.com/p/goauth2/oauth"
 	"github.com/google/go-github/github"
@@ -23,16 +22,16 @@ type RepoStats struct {
 	Followers    int
 }
 
-func getRepoStats(repoUrl string) *RepoStats {
+func getRepoStats(owner, repoName string) *RepoStats {
 
-	url := strings.Split(repoUrl, "/")
+	// url := strings.Split(repoUrl, "/")
 
-	repo, _, err := context.client.Repositories.Get(url[0], url[1])
+	repo, _, err := context.client.Repositories.Get(owner, repoName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	c, _, err := context.client.Repositories.ListContributors(url[0], url[1], nil)
+	c, _, err := context.client.Repositories.ListContributors(owner, repoName, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,7 +46,7 @@ func getRepoStats(repoUrl string) *RepoStats {
 	return rs
 }
 
-func mainold() {
+func configureClient() {
 	log.Println("Starting OSS Health App")
 
 	err := godotenv.Load()
@@ -62,9 +61,9 @@ func mainold() {
 
 	context.client = client
 
-	rs := getRepoStats("140proof/OSS-Health")
+	// rs := getRepoStats("140proof/OSS-Health")
 
-	log.Printf("rs: %#v", rs)
+	// log.Printf("rs: %#v", rs)
 
 	//log.Println("Repo: ", repo)
 	//log.Println("Contributors: ", c)

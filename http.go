@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -13,12 +12,15 @@ import (
 func ossNameHandler(w http.ResponseWriter, r *http.Request) {
 	// req := r.URL.Path[1:]
 	data := mux.Vars(r)
+
 	log.Println(data)
-	if data["owner"] == "140proof" {
-		fmt.Fprintf(w, "owner:%s project:%s grade:%s", data["owner"], data["repo"], "%100")
-	} else {
-		fmt.Fprintf(w, "owner:%s project:%s grade:%s", data["owner"], data["repo"], "%20")
-	}
+	// log.Println(data["owner"], data["repo"])
+
+	log.Println(context)
+
+	// repoStats := getRepoStats(data["owner"], data["repo"])
+	//
+	// log.Println(repoStats)
 }
 
 func handlers() *mux.Router {
@@ -27,7 +29,7 @@ func handlers() *mux.Router {
 	return r
 }
 func startServer() {
-
+	configureClient()
 	log.Println("serving...")
 	if os.Getenv("PORT") != "" {
 		http.ListenAndServe(strings.Join([]string{":", os.Getenv("PORT")}, ""), handlers())
