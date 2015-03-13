@@ -22,7 +22,7 @@ type RepoStats struct {
 	Followers    int
 }
 
-func getRepoStats(owner, repoName string) *RepoStats {
+func GetRepoStats(owner, repoName string) *RepoStats {
 
 	// url := strings.Split(repoUrl, "/")
 
