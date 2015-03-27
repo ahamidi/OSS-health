@@ -29,6 +29,10 @@ func ossNameHandler(w http.ResponseWriter, r *http.Request) {
 	repoStats := GetRepoStats(data["owner"], data["repo"])
 	//
 	log.Printf("%+v\n", repoStats)
+
+	activityStats := GetCommitStats(data["owner"], data["repo"])
+
+	log.Println(activityStats)
 	// log.Println(repoStats)
 }
 
