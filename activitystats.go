@@ -3,7 +3,7 @@ package main
 import "log"
 
 type CommitStats struct {
-	Day     int
+	//Day     int
 	Week    int
 	Month   int
 	Quarter int
@@ -12,32 +12,32 @@ type CommitStats struct {
 
 func GetCommitStats(owner, repoName string) *CommitStats {
 
-	// url := strings.Split(repoUrl, "/")
+	commitStats := &CommitStats{}
 
-	repo, _, err := context.client.Repositories.ListCommitActivity(owner, repoName)
+	activity, _, err := context.client.Repositories.ListCommitActivity(owner, repoName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Println(repo[49])
-	// c, _, err := context.client.Repositories.ListContributors(owner, repoName, nil)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	//has wiki
+	weekIdx := 0
+	curSumTotal := 0
+	for i := len(activity) - 1; i >= 0; i-- {
+		weekIdx++
+		curSumTotal += *activity[i].Total
 
-	//has issues
-	//commit activity
-	//participation
-	// rs := &RepoStats{
-	// 	Stars:        *repo.StargazersCount,
-	// 	Forks:        *repo.ForksCount,
-	// 	Contributors: len(c),
-	// 	Followers:    *repo.WatchersCount,
-	// 	Wiki:         *repo.HasWiki,
-	// 	Issues:       *repo.HasIssues,
-	// }
-	//
-	// return rs
-	return nil
+		if weekIdx == 1 {
+			commitStats.Week = curSumTotal
+		}
+
+		if weekIdx == 4 {
+			commitStats.Month = curSumTotal
+		}
+
+		if weekIdx == 12 {
+			commitStats.Quarter = curSumTotal
+		}
+	}
+	commitStats.Year = curSumTotal
+
+	return commitStats
 }
