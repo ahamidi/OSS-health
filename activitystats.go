@@ -2,8 +2,6 @@ package main
 
 import (
 	"log"
-
-	"github.com/google/go-github/github"
 )
 
 // CommitStats is a summary of the last year's worth of commit activity.
