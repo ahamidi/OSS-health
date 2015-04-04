@@ -19,21 +19,20 @@ func GetCommitStats(owner, repoName string) *CommitStats {
 		log.Fatal(err)
 	}
 
-	weekIdx := 0
+	l := len(activity) - 1
 	curSumTotal := 0
-	for i := len(activity) - 1; i >= 0; i-- {
-		weekIdx++
-		curSumTotal += *activity[i].Total
+	for i := range activity {
+		curSumTotal += *activity[l-i].Total
 
-		if weekIdx == 1 {
+		if i == 1 {
 			commitStats.Week = curSumTotal
 		}
 
-		if weekIdx == 4 {
+		if i == 4 {
 			commitStats.Month = curSumTotal
 		}
 
-		if weekIdx == 12 {
+		if i == 12 {
 			commitStats.Quarter = curSumTotal
 		}
 	}
