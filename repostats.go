@@ -13,8 +13,6 @@ type RepoStats struct {
 
 func GetRepoStats(owner, repoName string) *RepoStats {
 
-	// url := strings.Split(repoUrl, "/")
-
 	repo, _, err := context.client.Repositories.Get(owner, repoName)
 	if err != nil {
 		log.Fatal(err)
@@ -24,11 +22,7 @@ func GetRepoStats(owner, repoName string) *RepoStats {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//has wiki
 
-	//has issues
-	//commit activity
-	//participation
 	rs := &RepoStats{
 		Stars:        *repo.StargazersCount,
 		Forks:        *repo.ForksCount,

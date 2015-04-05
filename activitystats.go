@@ -2,6 +2,8 @@ package main
 
 import (
 	"log"
+
+	//"github.com/google/go-github/github"
 )
 
 // CommitStats is a summary of the last year's worth of commit activity.
@@ -18,38 +20,6 @@ type CommitStats struct {
 type ParticipationStats struct {
 	All   *CommitStats
 	Owner *CommitStats
-}
-
-// FIXME can we delete? Output subsumed by GetParticipationStats
-func GetCommitStats(owner, repoName string) *CommitStats {
-
-	commitStats := &CommitStats{}
-
-	activity, _, err := context.client.Repositories.ListCommitActivity(owner, repoName)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	l := len(activity) - 1
-	curSumTotal := 0
-	for i := range activity {
-		curSumTotal += *activity[l-i].Total
-
-		if i == 1 {
-			commitStats.Week = curSumTotal
-		}
-
-		if i == 4 {
-			commitStats.Month = curSumTotal
-		}
-
-		if i == 12 {
-			commitStats.Quarter = curSumTotal
-		}
-	}
-	commitStats.Year = curSumTotal
-
-	return commitStats
 }
 
 func GetParticipationStats(owner, repoName string) *ParticipationStats {

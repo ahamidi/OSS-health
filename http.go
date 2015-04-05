@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
@@ -19,21 +20,32 @@ type Context struct {
 
 var context Context
 
+type RepoHealth struct {
+	RepoStats   *RepoStats          `json:"repo,omitempty"`
+	CommitStats *ParticipationStats `json:"participation,omitempty"`
+}
+
 func ossNameHandler(w http.ResponseWriter, r *http.Request) {
-	// req := r.URL.Path[1:]
 	data := mux.Vars(r)
 
 	log.Println(data)
-	// log.Println(data["owner"], data["repo"])
 
 	repoStats := GetRepoStats(data["owner"], data["repo"])
-	//
-	log.Printf("%+v\n", repoStats)
 
-	activityStats := GetCommitStats(data["owner"], data["repo"])
+	partStats := GetParticipationStats(data["owner"], data["repo"])
 
-	log.Println(activityStats)
-	// log.Println(repoStats)
+	rh := &RepoHealth{
+		RepoStats:   repoStats,
+		CommitStats: partStats,
+	}
+
+	jsonResponse, err := json.Marshal(rh)
+	if err != nil {
+		log.Panic(err)
+	}
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(200)
+	w.Write(jsonResponse)
 }
 
 func handlers() *mux.Router {
@@ -70,12 +82,5 @@ func configureClient() {
 	client := github.NewClient(t.Client())
 
 	context.client = client
-
-	// rs := getRepoStats("140proof/OSS-Health")
-
-	// log.Printf("rs: %#v", rs)
-
-	//log.Println("Repo: ", repo)
-	//log.Println("Contributors: ", c)
 
 }
