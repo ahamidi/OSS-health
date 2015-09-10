@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -25,19 +26,25 @@ type RepoHealth struct {
 	CommitStats *ParticipationStats `json:"participation,omitempty"`
 }
 
-func ossNameHandler(w http.ResponseWriter, r *http.Request) {
-	data := mux.Vars(r)
+func getRepoHealth(owner string, repo string) *RepoHealth {
+	repoStats := GetRepoStats(owner, repo)
 
-	log.Println(data)
-
-	repoStats := GetRepoStats(data["owner"], data["repo"])
-
-	partStats := GetParticipationStats(data["owner"], data["repo"])
+	partStats := GetParticipationStats(owner, repo)
 
 	rh := &RepoHealth{
 		RepoStats:   repoStats,
 		CommitStats: partStats,
 	}
+
+	return rh
+}
+
+func ossNameHandler(w http.ResponseWriter, r *http.Request) {
+	data := mux.Vars(r)
+
+	log.Println(data)
+
+	rh := getRepoHealth(data["owner"], data["repo"])
 
 	jsonResponse, err := json.Marshal(rh)
 	if err != nil {
@@ -48,9 +55,41 @@ func ossNameHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResponse)
 }
 
+func ossBadgeHandler(w http.ResponseWriter, r *http.Request) {
+	data := mux.Vars(r)
+
+	log.Println(data)
+
+	rh := getRepoHealth(data["owner"], data["repo"])
+	log.Println("RH:", &rh)
+
+	// TODO: Get actual score for Repo
+	grade := "A"
+
+	badgeUrl := getBadge(grade)
+
+	// Get badge image
+	// TODO:
+	// - This is a very stupid hack
+	// - We should be generating the badge ourselves, not proxying the badge
+	//	 from shields.io
+	resp, err := http.Get(badgeUrl)
+	if err != nil {
+		// handle error
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	w.Header().Add("Content-Type", "image/svg+xml;charset=utf-8")
+	w.WriteHeader(200)
+	w.Write(body)
+
+}
+
 func handlers() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/{owner}/{repo}", ossNameHandler).Methods("GET")
+	r.HandleFunc("/{owner}/{repo}/badge.svg", ossBadgeHandler).Methods("GET")
 	return r
 }
 func startServer() {
