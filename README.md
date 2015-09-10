@@ -1,3 +1,5 @@
+![Project Health](https://oss-health.herokuapp.com/140proof/oss-health/badge.svg)
+
 ### Open Source Project Health Monitor
 
 Indicator of project health (i.e. is this project dead?)
