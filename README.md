@@ -5,11 +5,11 @@ Indicator of project health (i.e. is this project dead?)
 #### Features
 
 - [ ] Accept Github repo and pull down metrics 
-    - [ ] Stars
-    - [ ] Forks
-    - [ ] Followers
-    - [ ] Commit stats
-    - [ ] Number of contributors
+    - [x] Stars
+    - [x] Forks
+    - [x] Followers
+    - [x] Commit stats
+    - [x] Number of contributors
     - [ ] Issue stats
 - [ ] Calculate aggregate "health" or "activity" score
 - [ ] Persist scores (database)
