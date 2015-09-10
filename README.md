@@ -13,7 +13,7 @@ Indicator of project health (i.e. is this project dead?)
     - [ ] Issue stats
 - [ ] Calculate aggregate "health" or "activity" score
 - [ ] Persist scores (database)
-- [ ] Generate "badge" with score
+- [x] Generate "badge" with score
 
 #### Admin/Ops
 
