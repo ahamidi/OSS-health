@@ -112,7 +112,7 @@ func configureClient() {
 
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		// No .env, so get settings from ENV
 	}
 
 	t := &oauth.Transport{
