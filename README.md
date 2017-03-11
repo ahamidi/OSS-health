@@ -4,6 +4,8 @@
 
 Indicator of project health (i.e. is this project dead?)
 
+For more information on [Scoring go here](SCORING.md).
+
 #### Features
 
 - [ ] Accept Github repo and pull down metrics 
@@ -28,9 +30,8 @@ Indicator of project health (i.e. is this project dead?)
 #### Setup
 
 1. Get code: `git clone https://github.com/140proof/OSS-health.git`
-1. Get dependencies: `go get -t`
-1. Build: `go build`
-1. Run: `./OSS-health`
+1. Build: `govendor install +l` 
+1. Run: `oss-health`
 
 #### Deploy (Heroku)
 
@@ -45,4 +46,5 @@ Indicator of project health (i.e. is this project dead?)
 
 * [Github API](https://developer.github.com/v3/)
 * [Github Go Package](https://github.com/google/go-github)
-* [Go OAuth2 Package](https://github.com/golang/oauth2)
+* [Go OAuth2 Package](https://golang.org/x/oauth2)
+* [Shield Image Generator - shields.io](http://shields.io/)
