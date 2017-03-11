@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-
 	//"github.com/google/go-github/github"
 )
 
@@ -28,7 +27,7 @@ func GetParticipationStats(owner, repoName string) *ParticipationStats {
 		Owner: &CommitStats{},
 	}
 
-	par, _, err := context.client.Repositories.ListParticipation(owner, repoName)
+	par, _, err := cfg.client.Repositories.ListParticipation(cfg.ctx, owner, repoName)
 	if err != nil {
 		log.Fatal(err)
 	}

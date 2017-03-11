@@ -13,12 +13,12 @@ type RepoStats struct {
 
 func GetRepoStats(owner, repoName string) *RepoStats {
 
-	repo, _, err := context.client.Repositories.Get(owner, repoName)
+	repo, _, err := cfg.client.Repositories.Get(cfg.ctx, owner, repoName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	c, _, err := context.client.Repositories.ListContributors(owner, repoName, nil)
+	c, _, err := cfg.client.Repositories.ListContributors(cfg.ctx, owner, repoName, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
