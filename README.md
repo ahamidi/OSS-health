@@ -1,4 +1,4 @@
-![Project Health](https://oss-health.herokuapp.com/140proof/oss-health/badge.svg)
+![Project Health](https://oss-health.herokuapp.com/ahamidi/oss-health/badge.svg)
 
 ### Open Source Project Health Monitor
 

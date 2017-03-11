@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -8,18 +9,19 @@ import (
 	"os"
 	"strings"
 
-	"code.google.com/p/goauth2/oauth"
+	"golang.org/x/oauth2"
 
 	"github.com/google/go-github/github"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
 
-type Context struct {
+type AppConfig struct {
 	client *github.Client
+	ctx    context.Context
 }
 
-var context Context
+var cfg AppConfig
 
 type RepoHealth struct {
 	RepoStats   *RepoStats          `json:"repo,omitempty"`
@@ -115,11 +117,16 @@ func configureClient() {
 		// No .env, so get settings from ENV
 	}
 
-	t := &oauth.Transport{
-		Token: &oauth.Token{AccessToken: os.Getenv("OAUTH_TOKEN")},
-	}
-	client := github.NewClient(t.Client())
+	ctx := context.Background()
 
-	context.client = client
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: os.Getenv("OAUTH_TOKEN")},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	client := github.NewClient(tc)
+
+	cfg.client = client
+	cfg.ctx = ctx
 
 }
